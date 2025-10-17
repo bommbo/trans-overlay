@@ -41,11 +41,15 @@
 		;; Insert new record (keep pos, end_pos, source unchanged)
 		(trans-overlay-add file pos end-pos source new-translation type)
 		(message "✅ Translation updated")
-		;; Refresh overlay in file buffer
+		;; Refresh overlay in file buffer and all its windows
 		(let ((buf (get-file-buffer file)))
 		  (when buf
 			(with-current-buffer buf
-			  (trans-overlay-display-file))))
+			  (trans-overlay-display-file))
+			;; Force redisplay in every window showing this buffer
+			(dolist (win (get-buffer-window-list buf nil t))
+			  (with-selected-window win
+				(redisplay t)))))
 		;; Clean up edit buffer
 		(when (buffer-live-p edit-buf)
 		  (kill-buffer edit-buf))

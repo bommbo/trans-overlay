@@ -226,7 +226,7 @@
 	  (delete-overlay ov))))
 
 (defun trans-overlay--clear-all-overlays ()
-  "Clear all translation overlays in buffer."
+  "Clear all translation overlays in buffer using delete-overlay."
   (dolist (ov (overlays-in (point-min) (point-max)))
 	(when (overlay-get ov 'trans-overlay)
 	  (delete-overlay ov))))
@@ -265,8 +265,9 @@
 		(message "✅ Translation cleared")))))
 
 ;;;###autoload
+;;;###autoload
 (defun trans-overlay-display-file ()
-  "Display all translations from database."
+  "Display all translations from database using ov."
   (interactive)
   (let ((file (buffer-file-name)))
 	(unless file (user-error "Buffer must be visiting a file"))
@@ -283,9 +284,8 @@
 			(trans-overlay--create-overlay pos end-pos translation type)
 			(cl-incf count))))
 	  (message "✅ Displayed %d translation%s" count (if (= count 1) "" "s"))
-	  ;; Force redisplay
-	  (when (get-buffer-window (current-buffer))
-		(redisplay t)))))
+	  ;; 🔑 Force immediate redisplay
+	  (redisplay t))))
 
 ;;;###autoload
 (defun trans-overlay-export-wordlist (file-path)
