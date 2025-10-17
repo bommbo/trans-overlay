@@ -137,14 +137,23 @@
   (or (tabulated-list-get-id) (user-error "No entry on this line")))
 
 (defun trans-overlay-list-jump ()
-  "Jump to translation location and close list window."
+  "Jump to translation location and close the list window (not just buffer)."
   (interactive)
   (let* ((id (trans-overlay-list--get-id))
-		 (win (selected-window)))
-	(find-file (car id))
-	(goto-char (cdr id))
+		 (file (car id))
+		 (pos (cdr id))
+		 (list-window (selected-window))
+		 (list-buffer (current-buffer)))
+	(unless (file-exists-p file)
+	  (user-error "File no longer exists: %s" file))
+	(find-file-other-window file)
+	(goto-char (min pos (point-max)))
+	(recenter)
 	(pulse-momentary-highlight-one-line)
-	(delete-window win)))
+	(when (window-live-p list-window)
+	  (delete-window list-window))
+	(message "✅ Jumped to translation in %s" (file-name-nondirectory file))))
+
 
 (defun trans-overlay-list-other-window ()
   "Open translation location in other window."
