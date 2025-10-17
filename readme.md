@@ -43,6 +43,14 @@ Trans Overlay is an Emacs package for on-the-fly translation with persistent ove
 	  (expand-file-name "trans-overlay.db"
 						(expand-file-name "trans-overlay" user-emacs-directory)))
 
+(defun trans-overlay-maybe-enable ()
+  (when (and (buffer-file-name)
+			 (file-exists-p trans-overlay-db-file)
+			 (> (length (ignore-errors (trans-overlay-get-file (buffer-file-name)))) 0))
+	(trans-overlay-mode 1)))
+
+(add-hook 'find-file-hook #'trans-overlay-maybe-enable)
+
 ;; Enable trans-overlay-mode in desired modes
 (add-hook 'text-mode-hook #'trans-overlay-mode)
 (add-hook 'prog-mode-hook #'trans-overlay-mode)
