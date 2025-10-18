@@ -51,9 +51,6 @@ Trans Overlay is an Emacs package for on-the-fly translation with persistent ove
 
 (add-hook 'find-file-hook #'trans-overlay-maybe-enable)
 
-;; Enable trans-overlay-mode in desired modes
-(add-hook 'text-mode-hook #'trans-overlay-mode)
-(add-hook 'prog-mode-hook #'trans-overlay-mode)
 ```
 
 ## Basic Operations
