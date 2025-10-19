@@ -73,16 +73,17 @@ Trans Overlay is an Emacs package for on-the-fly translation with persistent ove
 
 ## List View Keybindings
 
-| Command                          | Key | Function                           |
-|----------------------------------|-----|------------------------------------|
-| trans-overlay-list-jump          | RET | Jump to translation and close list |
-| trans-overlay-list-other-window  | o   | Preview translation in other window|
-| trans-overlay-list-edit          | e   | Edit translation                   |
-| trans-overlay-list-delete        | d   | Delete current translation         |
-| trans-overlay-list-delete-marked | D   | Delete all marked translations     |
-| trans-overlay-list-toggle-mark   | m   | Toggle mark for current item       |
-| trans-overlay-list-mark-all      | M   | Mark all visible items             |
-| trans-overlay-list-unmark-all    | U   | Unmark all items                   |
-| trans-overlay-list-filter        | /   | Filter translations                |
-| trans-overlay-list-refresh       | g   | Refresh list                       |
-| trans-overlay-list-export        | E   | Export marked translations         |
+| Command                          | Key | Function                            |
+|----------------------------------|-----|-------------------------------------|
+| trans-overlay-list-jump          | RET | Jump to translation and close list  |
+| trans-overlay-list-other-window  | o   | Preview translation in other window |
+| trans-overlay-list-edit          | e   | Edit translation                    |
+| trans-overlay-list-delete        | d   | Delete current translation          |
+| trans-overlay-list-delete-marked | D   | Delete all marked translations      |
+| trans-overlay-list-toggle-mark   | m   | Toggle mark for current item        |
+| trans-overlay-list-mark-all      | M   | Mark all visible items              |
+| trans-overlay-list-unmark-all    | U   | Unmark all items                    |
+| trans-overlay-list               | L   | Switch back to full list            |
+| trans-overlay-list-filter        | /   | Filter translations                 |
+| trans-overlay-list-refresh       | g   | Refresh list                        |
+| trans-overlay-list-export        | E   | Export marked translations          |

@@ -100,6 +100,7 @@
 	(define-key map "m" #'trans-overlay-list-toggle-mark)
 	(define-key map "M" #'trans-overlay-list-mark-all)
 	(define-key map "U" #'trans-overlay-list-unmark-all)
+	(define-key map "L" #'trans-overlay-list)
 	(define-key map "o" #'trans-overlay-list-other-window)
 	map)
   "Keymap for `trans-overlay-list-mode'.")
