@@ -61,6 +61,7 @@ Trans Overlay is an Emacs package for on-the-fly translation with persistent ove
 - `trans-overlay-add-translation` - Manually add or edit translation without translate-shell
 - `trans-overlay-quick-translate` (C-c t q) - Quick translate in minibuffer (no save)
 - `trans-overlay-quick-translate-popup` (C-c t p) - Quick translate in popup buffer (no save)
+- `trans-overlay-quick-translate-popup-reverse` (C-c t P) - Quick translate in popup buffer (reverse, no save)
 
 ### Display and Management
 

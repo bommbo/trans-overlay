@@ -387,6 +387,43 @@
 			(pop-to-buffer buf)
 			(message "✅ Press 'q' to close")))))))
 
+;;;###autoload
+(defun trans-overlay-quick-translate-popup-reverse ()
+  "Translate word/region in reverse direction and show in popup buffer.
+Reverse means: from `trans-overlay-target-lang` back to `trans-overlay-source-lang`."
+  (interactive)
+  (let* ((text-info (trans-overlay--get-text-at-point))
+		 (text (nth 0 text-info)))
+	(if (not text)
+		(message "⚠️ No text found at point")
+	  ;; Temporarily swap source and target languages
+	  (let ((trans-overlay-source-lang trans-overlay-target-lang)
+			(trans-overlay-target-lang trans-overlay-source-lang))
+		(let ((translation (trans-overlay--call-trans text)))
+		  (if (not translation)
+			  (message "❌ Reverse translation failed for: '%s'" text)
+			(let ((buf (get-buffer-create "*Translation (Reverse)*")))
+			  (with-current-buffer buf
+				(let ((inhibit-read-only t))
+				  (erase-buffer)
+				  (insert "═══════════════════════════════════════\n")
+				  (insert "🔤 Source (Reverse):\n")
+				  (insert "  " text "\n\n")
+				  (insert "🌐 Translation (Reverse):\n")
+				  (insert "  ")
+				  (let ((trans-start (point)))
+					(insert translation "\n")
+					(insert "═══════════════════════════════════════\n")
+					(goto-char trans-start)))
+				(use-local-map
+				 (let ((map (make-sparse-keymap)))
+				   (set-keymap-parent map special-mode-map)
+				   (define-key map "q" #'quit-window)
+				   map))
+				(setq buffer-read-only t))
+			  (pop-to-buffer buf)
+			  (message "✅ Reverse translation shown | Press 'q' to close"))))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Sync on Save ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun trans-overlay--sync-on-save ()
   "Sync translation positions to DB after saving a file."
@@ -434,6 +471,7 @@
 	(define-key map (kbd "C-c t l") #'trans-overlay-list)
 	(define-key map (kbd "C-c t q") #'trans-overlay-quick-translate)
 	(define-key map (kbd "C-c t p") #'trans-overlay-quick-translate-popup)
+	(define-key map (kbd "C-c t P") #'trans-overlay-quick-translate-popup-reverse)
 	map)
   "Keymap for Trans Overlay mode.")
 
